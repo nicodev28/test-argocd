@@ -33,9 +33,4 @@ spec:
             memory: "64Mi"
         ports:
           - containerPort: 80
-        command:
-        - /bin/sh
-        - -c
-        - 'echo <h1>hello les devops</h1> > /usr/share/nginx/html/index.html'
-
 status: {}
