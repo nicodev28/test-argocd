@@ -1,0 +1,5 @@
+# Default values for myapp.
+
+replicaCount: 1
+
+imageName: nginx:latest

@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-deploy
+spec:
+  replicas: {{ .Values.replicaCount }}
+  strategy: {}
+  selector:
+    matchLabels:
+        app: {{ .Release.Name }}-deploy
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-deploy
+    spec:
+      volumes:
+      - name: {{ .Release.Name }}-mydata
+        persistentVolumeClaim:
+          claimName: {{ .Release.Name }}-mydata
+
+      containers:
+      - image: {{ .Values.imageName }}
+        name: nginx
+        volumeMounts:
+        - name: {{ .Release.Name }}-mydata
+          mountPath: /usr/share/nginx/html
+        resources:
+          requests:
+            cpu: "50m"
+            memory: "32Mi"
+          limits:
+            cpu: "100m"
+            memory: "64Mi"
+        ports:
+          - containerPort: 80
+
+
+status: {}
